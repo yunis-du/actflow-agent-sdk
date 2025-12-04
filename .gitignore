@@ -1,0 +1,11 @@
+### IntelliJ IDEA ###
+.idea
+
+### Visual Studio Code ###
+.vscode
+
+### MacOs ###
+.DS_Store
+
+rust-sdk/Cargo.lock
+rust-sdk/target/
