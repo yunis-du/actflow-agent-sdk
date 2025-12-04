@@ -8,7 +8,7 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-actflow-agent-sdk = "0.1.0"
+actflow-agent-sdk = "0.1.1"
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 serde_json = "1"
 ```
@@ -37,7 +37,7 @@ impl Agent for MyAgent {
 #[tokio::main]
 async fn main() {
     AgentServer::new(MyAgent)
-        .serve("[::1]:50051")
+        .serve("0.0.0.0:50051")
         .await
         .unwrap();
 }

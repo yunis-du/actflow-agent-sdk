@@ -50,7 +50,7 @@ impl Agent for MyAgent {
 
 #[tokio::main]
 async fn main() {
-    AgentServer::new(MyAgent).serve("[::1]:50051").await.unwrap();
+    AgentServer::new(MyAgent).serve("0.0.0.0:50051").await.unwrap();
 }
 ```
 
@@ -67,7 +67,7 @@ func (a *MyAgent) Run(ctx context.Context, nid string, execCtx *sdk.Context, inp
 func (a *MyAgent) Shutdown(ctx context.Context) error { return nil }
 
 func main() {
-    sdk.NewServer(&MyAgent{}).Serve("[::1]:50051")
+    sdk.NewServer(&MyAgent{}).Serve("0.0.0.0:50051")
 }
 ```
 

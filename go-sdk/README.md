@@ -5,7 +5,7 @@ A Go SDK for building agents for the Actflow workflow engine.
 ## Installation
 
 ```bash
-go get github.com/yunis-du/actflow-agent-sdk/go-sdk
+go get github.com/yunis-du/actflow-agent-sdk/go-sdk@v0.1.1
 ```
 
 ## Quick Start
@@ -35,7 +35,7 @@ func (a *MyAgent) Shutdown(ctx context.Context) error {
 }
 
 func main() {
-    sdk.NewServer(&MyAgent{}).Serve("[::1]:50051")
+    sdk.NewServer(&MyAgent{}).Serve("0.0.0.0:50051")
 }
 ```
 

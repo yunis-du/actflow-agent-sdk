@@ -27,7 +27,7 @@
 //! #[tokio::main]
 //! async fn main() {
 //!     AgentServer::new(MyAgent)
-//!         .serve("[::1]:50051")
+//!         .serve("0.0.0.0:50051")
 //!         .await
 //!         .unwrap();
 //! }
