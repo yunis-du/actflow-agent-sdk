@@ -19,7 +19,7 @@ Actflow Agent SDK provides libraries for multiple programming languages to help 
 ```
 ┌─────────────────┐         gRPC          ┌─────────────────┐
 │                 │ ◄──────────────────── │                 │
-│  Actflow Engine  │      RunRequest       │   Your Agent    │
+│  Actflow Engine │      RunRequest       │   Your Agent    │
 │                 │ ────────────────────► │  (SDK-based)    │
 │                 │   Stream<AgentUpdate> │                 │
 └─────────────────┘                       └─────────────────┘
