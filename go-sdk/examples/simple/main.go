@@ -51,7 +51,7 @@ func (a *EchoAgent) Shutdown(ctx context.Context) error {
 }
 
 func main() {
-	addr := "[::1]:50051"
+	addr := "0.0.0.0:50051"
 	log.Printf("Starting EchoAgent server on %s", addr)
 
 	server := sdk.NewServer(&EchoAgent{})

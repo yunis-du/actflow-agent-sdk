@@ -73,11 +73,10 @@ impl Agent for CalculatorAgent {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:50052";
+    let addr = "0.0.0.0:50052";
     println!("Starting CalculatorAgent server on {}", addr);
 
     AgentServer::new(CalculatorAgent).serve(addr).await?;
 
     Ok(())
 }
-

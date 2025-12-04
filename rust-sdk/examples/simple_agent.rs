@@ -13,13 +13,7 @@ use actflow_agent_sdk::{Agent, AgentOutput, AgentServer, Context, Inputs, LogSen
 struct EchoAgent;
 
 impl Agent for EchoAgent {
-    async fn run(
-        &self,
-        nid: String,
-        ctx: Context,
-        inputs: Inputs,
-        log: LogSender,
-    ) -> AgentOutput {
+    async fn run(&self, nid: String, ctx: Context, inputs: Inputs, log: LogSender) -> AgentOutput {
         // Log the start of execution
         log.send(format!("Node {} starting execution", nid)).await;
         log.send(format!("Process ID: {}", ctx.pid)).await;
@@ -56,11 +50,10 @@ impl Agent for EchoAgent {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:50051";
+    let addr = "0.0.0.0:50051";
     println!("Starting EchoAgent server on {}", addr);
 
     AgentServer::new(EchoAgent).serve(addr).await?;
 
     Ok(())
 }
-

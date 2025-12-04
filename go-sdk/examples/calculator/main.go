@@ -98,7 +98,7 @@ func getNumber(m map[string]any, key string) (float64, bool) {
 }
 
 func main() {
-	addr := "[::1]:50052"
+	addr := "0.0.0.0:50052"
 	log.Printf("Starting CalculatorAgent server on %s", addr)
 
 	server := sdk.NewServer(&CalculatorAgent{})
@@ -106,4 +106,3 @@ func main() {
 		log.Fatalf("Failed to serve: %v", err)
 	}
 }
-
