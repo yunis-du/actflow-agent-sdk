@@ -56,11 +56,8 @@ type agentServiceImpl struct {
 
 // Run implements the Run RPC method.
 func (s *agentServiceImpl) Run(req *pb.RunRequest, stream pb.AgentService_RunServer) error {
-	// Convert proto context to SDK context
-	execCtx := protoContextToContext(req.Ctx)
-
-	// Convert inputs
-	inputs := protoValueToAny(req.Inputs)
+	// Convert inputs to map[string]any
+	inputs := protoValueToMap(req.Inputs)
 
 	// Create log channel
 	logCh := make(chan string, 1024)
@@ -71,7 +68,7 @@ func (s *agentServiceImpl) Run(req *pb.RunRequest, stream pb.AgentService_RunSer
 
 	go func() {
 		defer close(logCh)
-		output, err := s.agent.Run(stream.Context(), req.Nid, execCtx, inputs, logCh)
+		output, err := s.agent.Run(stream.Context(), req.Pid, req.Nid, inputs, logCh)
 		if err != nil {
 			errCh <- err
 			return

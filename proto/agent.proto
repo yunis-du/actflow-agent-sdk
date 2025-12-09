@@ -19,8 +19,8 @@ message Empty {}
 
 // Request to run an agent.
 message RunRequest {
-  string nid = 1;// Node id.
-  Context ctx = 2;// Context.
+  string pid = 1;// Process id.
+  string nid = 2;// Node id.
   google.protobuf.Value inputs = 3;// Inputs.
 }
 
@@ -30,13 +30,6 @@ message AgentUpdate {
     string log = 1;
     AgentOutput output = 2;
   }
-}
-
-// Context for agent execution.
-message Context {
-  string pid = 1;// Process id.
-  map<string, string> env = 2;// Environment variables.
-  map<string, google.protobuf.Value> outputs = 3;// Outputs.
 }
 
 // Log message.

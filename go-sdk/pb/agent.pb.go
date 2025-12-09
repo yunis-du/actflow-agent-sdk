@@ -121,8 +121,8 @@ func (*Empty) Descriptor() ([]byte, []int) {
 // Request to run an agent.
 type RunRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Nid           string                 `protobuf:"bytes,1,opt,name=nid,proto3" json:"nid,omitempty"`       // Node id.
-	Ctx           *Context               `protobuf:"bytes,2,opt,name=ctx,proto3" json:"ctx,omitempty"`       // Context.
+	Pid           string                 `protobuf:"bytes,1,opt,name=pid,proto3" json:"pid,omitempty"`       // Process id.
+	Nid           string                 `protobuf:"bytes,2,opt,name=nid,proto3" json:"nid,omitempty"`       // Node id.
 	Inputs        *structpb.Value        `protobuf:"bytes,3,opt,name=inputs,proto3" json:"inputs,omitempty"` // Inputs.
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -158,18 +158,18 @@ func (*RunRequest) Descriptor() ([]byte, []int) {
 	return file_agent_proto_rawDescGZIP(), []int{1}
 }
 
+func (x *RunRequest) GetPid() string {
+	if x != nil {
+		return x.Pid
+	}
+	return ""
+}
+
 func (x *RunRequest) GetNid() string {
 	if x != nil {
 		return x.Nid
 	}
 	return ""
-}
-
-func (x *RunRequest) GetCtx() *Context {
-	if x != nil {
-		return x.Ctx
-	}
-	return nil
 }
 
 func (x *RunRequest) GetInputs() *structpb.Value {
@@ -262,67 +262,6 @@ func (*AgentUpdate_Log) isAgentUpdate_RelayMessage() {}
 
 func (*AgentUpdate_Output) isAgentUpdate_RelayMessage() {}
 
-// Context for agent execution.
-type Context struct {
-	state         protoimpl.MessageState     `protogen:"open.v1"`
-	Pid           string                     `protobuf:"bytes,1,opt,name=pid,proto3" json:"pid,omitempty"`                                                                                   // Process id.
-	Env           map[string]string          `protobuf:"bytes,2,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`         // Environment variables.
-	Outputs       map[string]*structpb.Value `protobuf:"bytes,3,rep,name=outputs,proto3" json:"outputs,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // Outputs.
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Context) Reset() {
-	*x = Context{}
-	mi := &file_agent_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Context) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Context) ProtoMessage() {}
-
-func (x *Context) ProtoReflect() protoreflect.Message {
-	mi := &file_agent_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Context.ProtoReflect.Descriptor instead.
-func (*Context) Descriptor() ([]byte, []int) {
-	return file_agent_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *Context) GetPid() string {
-	if x != nil {
-		return x.Pid
-	}
-	return ""
-}
-
-func (x *Context) GetEnv() map[string]string {
-	if x != nil {
-		return x.Env
-	}
-	return nil
-}
-
-func (x *Context) GetOutputs() map[string]*structpb.Value {
-	if x != nil {
-		return x.Outputs
-	}
-	return nil
-}
-
 // Log message.
 type Log struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -333,7 +272,7 @@ type Log struct {
 
 func (x *Log) Reset() {
 	*x = Log{}
-	mi := &file_agent_proto_msgTypes[4]
+	mi := &file_agent_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -345,7 +284,7 @@ func (x *Log) String() string {
 func (*Log) ProtoMessage() {}
 
 func (x *Log) ProtoReflect() protoreflect.Message {
-	mi := &file_agent_proto_msgTypes[4]
+	mi := &file_agent_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -358,7 +297,7 @@ func (x *Log) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Log.ProtoReflect.Descriptor instead.
 func (*Log) Descriptor() ([]byte, []int) {
-	return file_agent_proto_rawDescGZIP(), []int{4}
+	return file_agent_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Log) GetContent() string {
@@ -385,7 +324,7 @@ type AgentOutput struct {
 
 func (x *AgentOutput) Reset() {
 	*x = AgentOutput{}
-	mi := &file_agent_proto_msgTypes[5]
+	mi := &file_agent_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -397,7 +336,7 @@ func (x *AgentOutput) String() string {
 func (*AgentOutput) ProtoMessage() {}
 
 func (x *AgentOutput) ProtoReflect() protoreflect.Message {
-	mi := &file_agent_proto_msgTypes[5]
+	mi := &file_agent_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -410,7 +349,7 @@ func (x *AgentOutput) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AgentOutput.ProtoReflect.Descriptor instead.
 func (*AgentOutput) Descriptor() ([]byte, []int) {
-	return file_agent_proto_rawDescGZIP(), []int{5}
+	return file_agent_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *AgentOutput) GetStatus() NodeExecutionStatus {
@@ -446,26 +385,16 @@ var File_agent_proto protoreflect.FileDescriptor
 const file_agent_proto_rawDesc = "" +
 	"\n" +
 	"\vagent.proto\x12\x05agent\x1a\x1cgoogle/protobuf/struct.proto\"\a\n" +
-	"\x05Empty\"p\n" +
+	"\x05Empty\"`\n" +
 	"\n" +
 	"RunRequest\x12\x10\n" +
-	"\x03nid\x18\x01 \x01(\tR\x03nid\x12 \n" +
-	"\x03ctx\x18\x02 \x01(\v2\x0e.agent.ContextR\x03ctx\x12.\n" +
+	"\x03pid\x18\x01 \x01(\tR\x03pid\x12\x10\n" +
+	"\x03nid\x18\x02 \x01(\tR\x03nid\x12.\n" +
 	"\x06inputs\x18\x03 \x01(\v2\x16.google.protobuf.ValueR\x06inputs\"`\n" +
 	"\vAgentUpdate\x12\x12\n" +
 	"\x03log\x18\x01 \x01(\tH\x00R\x03log\x12,\n" +
 	"\x06output\x18\x02 \x01(\v2\x12.agent.AgentOutputH\x00R\x06outputB\x0f\n" +
-	"\rrelay_message\"\x89\x02\n" +
-	"\aContext\x12\x10\n" +
-	"\x03pid\x18\x01 \x01(\tR\x03pid\x12)\n" +
-	"\x03env\x18\x02 \x03(\v2\x17.agent.Context.EnvEntryR\x03env\x125\n" +
-	"\aoutputs\x18\x03 \x03(\v2\x1b.agent.Context.OutputsEntryR\aoutputs\x1a6\n" +
-	"\bEnvEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1aR\n" +
-	"\fOutputsEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12,\n" +
-	"\x05value\x18\x02 \x01(\v2\x16.google.protobuf.ValueR\x05value:\x028\x01\"\x1f\n" +
+	"\rrelay_message\"\x1f\n" +
 	"\x03Log\x12\x18\n" +
 	"\acontent\x18\x01 \x01(\tR\acontent\"\xa7\x01\n" +
 	"\vAgentOutput\x122\n" +
@@ -499,37 +428,30 @@ func file_agent_proto_rawDescGZIP() []byte {
 }
 
 var file_agent_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_agent_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_agent_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_agent_proto_goTypes = []any{
 	(NodeExecutionStatus)(0), // 0: agent.NodeExecutionStatus
 	(*Empty)(nil),            // 1: agent.Empty
 	(*RunRequest)(nil),       // 2: agent.RunRequest
 	(*AgentUpdate)(nil),      // 3: agent.AgentUpdate
-	(*Context)(nil),          // 4: agent.Context
-	(*Log)(nil),              // 5: agent.Log
-	(*AgentOutput)(nil),      // 6: agent.AgentOutput
-	nil,                      // 7: agent.Context.EnvEntry
-	nil,                      // 8: agent.Context.OutputsEntry
-	(*structpb.Value)(nil),   // 9: google.protobuf.Value
+	(*Log)(nil),              // 4: agent.Log
+	(*AgentOutput)(nil),      // 5: agent.AgentOutput
+	(*structpb.Value)(nil),   // 6: google.protobuf.Value
 }
 var file_agent_proto_depIdxs = []int32{
-	4,  // 0: agent.RunRequest.ctx:type_name -> agent.Context
-	9,  // 1: agent.RunRequest.inputs:type_name -> google.protobuf.Value
-	6,  // 2: agent.AgentUpdate.output:type_name -> agent.AgentOutput
-	7,  // 3: agent.Context.env:type_name -> agent.Context.EnvEntry
-	8,  // 4: agent.Context.outputs:type_name -> agent.Context.OutputsEntry
-	0,  // 5: agent.AgentOutput.status:type_name -> agent.NodeExecutionStatus
-	9,  // 6: agent.AgentOutput.outputs:type_name -> google.protobuf.Value
-	9,  // 7: agent.Context.OutputsEntry.value:type_name -> google.protobuf.Value
-	2,  // 8: agent.AgentService.Run:input_type -> agent.RunRequest
-	1,  // 9: agent.AgentService.Shutdown:input_type -> agent.Empty
-	3,  // 10: agent.AgentService.Run:output_type -> agent.AgentUpdate
-	1,  // 11: agent.AgentService.Shutdown:output_type -> agent.Empty
-	10, // [10:12] is the sub-list for method output_type
-	8,  // [8:10] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	6, // 0: agent.RunRequest.inputs:type_name -> google.protobuf.Value
+	5, // 1: agent.AgentUpdate.output:type_name -> agent.AgentOutput
+	0, // 2: agent.AgentOutput.status:type_name -> agent.NodeExecutionStatus
+	6, // 3: agent.AgentOutput.outputs:type_name -> google.protobuf.Value
+	2, // 4: agent.AgentService.Run:input_type -> agent.RunRequest
+	1, // 5: agent.AgentService.Shutdown:input_type -> agent.Empty
+	3, // 6: agent.AgentService.Run:output_type -> agent.AgentUpdate
+	1, // 7: agent.AgentService.Shutdown:output_type -> agent.Empty
+	6, // [6:8] is the sub-list for method output_type
+	4, // [4:6] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_agent_proto_init() }
@@ -547,7 +469,7 @@ func file_agent_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_agent_proto_rawDesc), len(file_agent_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   8,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -7,26 +7,16 @@
 //! cargo run --example simple_agent
 //! ```
 
-use actflow_agent_sdk::{Agent, AgentOutput, AgentServer, Context, Inputs, LogSender};
+use actflow_agent_sdk::{Agent, AgentOutput, AgentServer, Inputs, LogSender};
 
 /// A simple echo agent that returns the inputs with some processing.
 struct EchoAgent;
 
 impl Agent for EchoAgent {
-    async fn run(&self, nid: String, ctx: Context, inputs: Inputs, log: LogSender) -> AgentOutput {
+    async fn run(&self, pid: String, nid: String, inputs: Inputs, log: LogSender) -> AgentOutput {
         // Log the start of execution
         log.send(format!("Node {} starting execution", nid)).await;
-        log.send(format!("Process ID: {}", ctx.pid)).await;
-
-        // Log environment variables
-        if !ctx.env.is_empty() {
-            log.send(format!("Environment: {:?}", ctx.env)).await;
-        }
-
-        // Log workflow variables
-        if !ctx.outputs.is_empty() {
-            log.send(format!("Variables: {:?}", ctx.outputs)).await;
-        }
+        log.send(format!("Process ID: {}", pid)).await;
 
         // Process the inputs
         log.send(format!("Received inputs: {}", inputs)).await;

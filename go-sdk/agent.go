@@ -8,21 +8,11 @@ type Agent interface {
 	// Run executes the agent logic.
 	// The log channel is used to send log messages during execution.
 	// Close the log channel or return to complete execution.
-	Run(ctx context.Context, nid string, execCtx *Context, inputs any, log chan<- string) (*Output, error)
+	Run(ctx context.Context, pid, nid string, inputs map[string]any, log chan<- string) (*Output, error)
 
 	// Shutdown is called when the agent should shut down.
 	// Use this to perform cleanup operations.
 	Shutdown(ctx context.Context) error
-}
-
-// Context contains the execution context for an agent.
-type Context struct {
-	// PID is the process ID.
-	PID string
-	// Env contains environment variables.
-	Env map[string]string
-	// Outputs contains workflow variables.
-	Outputs map[string]any
 }
 
 // ExecutionStatus represents the status of agent execution.

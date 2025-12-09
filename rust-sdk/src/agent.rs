@@ -1,8 +1,10 @@
 //! Agent trait definition.
 
-use crate::types::{AgentOutput, Context, Inputs};
 use std::future::Future;
+
 use tokio::sync::mpsc;
+
+use crate::types::{AgentOutput, Inputs};
 
 /// A sender for streaming log messages during agent execution.
 #[derive(Clone)]
@@ -34,15 +36,15 @@ impl LogSender {
 /// # Example
 ///
 /// ```rust,ignore
-/// use actflow_agent_sdk::{Agent, AgentOutput, Context, Inputs, LogSender};
+/// use actflow_agent_sdk::{Agent, AgentOutput, Inputs, LogSender};
 ///
 /// struct MyAgent;
 ///
 /// impl Agent for MyAgent {
 ///     async fn run(
 ///         &self,
+///         pid: String,
 ///         nid: String,
-///         ctx: Context,
 ///         inputs: Inputs,
 ///         log: LogSender,
 ///     ) -> AgentOutput {
@@ -56,8 +58,8 @@ pub trait Agent: Send + Sync + 'static {
     ///
     /// # Arguments
     ///
+    /// * `pid` - Process ID
     /// * `nid` - Node ID in the workflow
-    /// * `ctx` - Execution context containing process ID, environment variables, and workflow variables
     /// * `inputs` - Input data for this agent
     /// * `log` - Log sender for streaming log messages
     ///
@@ -66,8 +68,8 @@ pub trait Agent: Send + Sync + 'static {
     /// Returns an `AgentOutput` containing the execution status and output data.
     fn run(
         &self,
+        pid: String,
         nid: String,
-        ctx: Context,
         inputs: Inputs,
         log: LogSender,
     ) -> impl Future<Output = AgentOutput> + Send;
@@ -80,4 +82,3 @@ pub trait Agent: Send + Sync + 'static {
         async {}
     }
 }
-

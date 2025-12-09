@@ -16,15 +16,15 @@ serde_json = "1"
 ## Quick Start
 
 ```rust
-use actflow_agent_sdk::{Agent, AgentServer, AgentOutput, Context, Inputs, LogSender};
+use actflow_agent_sdk::{Agent, AgentServer, AgentOutput, Inputs, LogSender};
 
 struct MyAgent;
 
 impl Agent for MyAgent {
     async fn run(
         &self,
+        pid: String,
         nid: String,
-        ctx: Context,
         inputs: Inputs,
         log: LogSender,
     ) -> AgentOutput {
@@ -49,20 +49,10 @@ async fn main() {
 
 ```rust
 pub trait Agent: Send + Sync + 'static {
-    fn run(&self, nid: String, ctx: Context, inputs: Inputs, log: LogSender)
+    fn run(&self, pid: String, nid: String, inputs: Inputs, log: LogSender)
         -> impl Future<Output = AgentOutput> + Send;
 
     fn shutdown(&self) -> impl Future<Output = ()> + Send { async {} }
-}
-```
-
-### Context
-
-```rust
-pub struct Context {
-    pub pid: String,                              // Process ID
-    pub env: HashMap<String, String>,             // Environment variables
-    pub outputs: HashMap<String, serde_json::Value>, // Workflow outputs
 }
 ```
 

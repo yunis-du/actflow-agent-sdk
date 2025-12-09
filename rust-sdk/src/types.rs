@@ -1,42 +1,6 @@
 //! Type definitions and utilities for the Agent SDK.
 
 use crate::proto;
-use std::collections::HashMap;
-
-/// Execution context for agent.
-#[derive(Debug, Clone)]
-pub struct Context {
-    /// Process ID.
-    pub pid: String,
-    /// Environment variables.
-    pub env: HashMap<String, String>,
-    /// Workflow outputs.
-    pub outputs: HashMap<String, serde_json::Value>,
-}
-
-impl From<proto::Context> for Context {
-    fn from(ctx: proto::Context) -> Self {
-        Self {
-            pid: ctx.pid,
-            env: ctx.env,
-            outputs: ctx
-                .outputs
-                .into_iter()
-                .map(|(k, v)| (k, prost_value_to_json(v)))
-                .collect(),
-        }
-    }
-}
-
-impl Default for Context {
-    fn default() -> Self {
-        Self {
-            pid: String::new(),
-            env: HashMap::new(),
-            outputs: HashMap::new(),
-        }
-    }
-}
 
 /// Agent inputs as JSON value.
 pub type Inputs = serde_json::Value;

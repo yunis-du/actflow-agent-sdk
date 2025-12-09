@@ -15,7 +15,6 @@ package main
 
 import (
     "context"
-    "fmt"
     "log"
 
     sdk "github.com/yunis-du/actflow-agent-sdk/go-sdk"
@@ -23,7 +22,7 @@ import (
 
 type MyAgent struct{}
 
-func (a *MyAgent) Run(ctx context.Context, nid string, execCtx *sdk.Context, inputs any, logCh chan<- string) (*sdk.Output, error) {
+func (a *MyAgent) Run(ctx context.Context, pid, nid string, inputs map[string]any, logCh chan<- string) (*sdk.Output, error) {
     logCh <- "Starting agent..."
     // Your agent logic here
     return sdk.Success(map[string]any{"result": "done"}), nil
@@ -45,18 +44,8 @@ func main() {
 
 ```go
 type Agent interface {
-    Run(ctx context.Context, nid string, execCtx *Context, inputs any, log chan<- string) (*Output, error)
+    Run(ctx context.Context, pid, nid string, inputs map[string]any, log chan<- string) (*Output, error)
     Shutdown(ctx context.Context) error
-}
-```
-
-### Context
-
-```go
-type Context struct {
-    PID  string            // Process ID
-    Env  map[string]string // Environment variables
-    Outputs map[string]any    // Workflow outputs
 }
 ```
 

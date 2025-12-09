@@ -19,28 +19,22 @@ import (
 type CalculatorAgent struct{}
 
 // Run executes the calculator logic.
-func (a *CalculatorAgent) Run(ctx context.Context, nid string, execCtx *sdk.Context, inputs any, logCh chan<- string) (*sdk.Output, error) {
+func (a *CalculatorAgent) Run(ctx context.Context, pid, nid string, inputs map[string]any, logCh chan<- string) (*sdk.Output, error) {
 	logCh <- "Calculator agent started"
 
-	// Parse inputs as map
-	inputMap, ok := inputs.(map[string]any)
-	if !ok {
-		return sdk.Failed("Invalid inputs format"), nil
-	}
-
 	// Get operation
-	op, ok := inputMap["operation"].(string)
+	op, ok := inputs["operation"].(string)
 	if !ok {
 		return sdk.Failed("Missing 'operation' field"), nil
 	}
 
 	// Get operands
-	aVal, ok := getNumber(inputMap, "a")
+	aVal, ok := getNumber(inputs, "a")
 	if !ok {
 		return sdk.Failed("Missing or invalid 'a' field"), nil
 	}
 
-	bVal, ok := getNumber(inputMap, "b")
+	bVal, ok := getNumber(inputs, "b")
 	if !ok {
 		return sdk.Failed("Missing or invalid 'b' field"), nil
 	}

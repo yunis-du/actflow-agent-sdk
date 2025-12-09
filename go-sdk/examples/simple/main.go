@@ -19,19 +19,9 @@ import (
 type EchoAgent struct{}
 
 // Run executes the agent logic.
-func (a *EchoAgent) Run(ctx context.Context, nid string, execCtx *sdk.Context, inputs any, logCh chan<- string) (*sdk.Output, error) {
+func (a *EchoAgent) Run(ctx context.Context, pid, nid string, inputs map[string]any, logCh chan<- string) (*sdk.Output, error) {
 	logCh <- fmt.Sprintf("Node %s starting execution", nid)
-	logCh <- fmt.Sprintf("Process ID: %s", execCtx.PID)
-
-	// Log environment variables
-	if len(execCtx.Env) > 0 {
-		logCh <- fmt.Sprintf("Environment: %v", execCtx.Env)
-	}
-
-	// Log workflow variables
-	if len(execCtx.Outputs) > 0 {
-		logCh <- fmt.Sprintf("Variables: %v", execCtx.Outputs)
-	}
+	logCh <- fmt.Sprintf("Process ID: %s", pid)
 
 	// Process the inputs
 	logCh <- fmt.Sprintf("Received inputs: %v", inputs)

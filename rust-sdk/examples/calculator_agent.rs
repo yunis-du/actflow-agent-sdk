@@ -7,19 +7,13 @@
 //! cargo run --example calculator_agent
 //! ```
 
-use actflow_agent_sdk::{Agent, AgentOutput, AgentServer, Context, Inputs, LogSender};
+use actflow_agent_sdk::{Agent, AgentOutput, AgentServer, Inputs, LogSender};
 
 /// A calculator agent that performs basic arithmetic operations.
 struct CalculatorAgent;
 
 impl Agent for CalculatorAgent {
-    async fn run(
-        &self,
-        _nid: String,
-        _ctx: Context,
-        inputs: Inputs,
-        log: LogSender,
-    ) -> AgentOutput {
+    async fn run(&self, _pid: String, _nid: String, inputs: Inputs, log: LogSender) -> AgentOutput {
         log.send("Calculator agent started").await;
 
         // Extract operation and operands from inputs

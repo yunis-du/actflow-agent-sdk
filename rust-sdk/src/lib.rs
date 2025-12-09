@@ -5,7 +5,7 @@
 //! ## Quick Start
 //!
 //! ```rust,ignore
-//! use actflow_agent_sdk::{Agent, AgentServer, Context, Inputs, LogSender};
+//! use actflow_agent_sdk::{Agent, AgentServer, Inputs, LogSender};
 //! use actflow_agent_sdk::{AgentOutput, NodeExecutionStatus};
 //!
 //! struct MyAgent;
@@ -13,8 +13,8 @@
 //! impl Agent for MyAgent {
 //!     async fn run(
 //!         &self,
+//!         pid: String,
 //!         nid: String,
-//!         ctx: Context,
 //!         inputs: Inputs,
 //!         log: LogSender,
 //!     ) -> AgentOutput {

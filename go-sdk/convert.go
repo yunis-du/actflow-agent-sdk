@@ -5,25 +5,18 @@ import (
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
-// protoContextToContext converts proto Context to SDK Context.
-func protoContextToContext(ctx *pb.Context) *Context {
-	if ctx == nil {
-		return &Context{
-			Env:     make(map[string]string),
-			Outputs: make(map[string]any),
-		}
+// protoValueToMap converts structpb.Value to map[string]any.
+// If the value is not a struct, returns an empty map.
+func protoValueToMap(v *structpb.Value) map[string]any {
+	if v == nil {
+		return make(map[string]any)
 	}
 
-	outputs := make(map[string]any)
-	for k, v := range ctx.Outputs {
-		outputs[k] = protoValueToAny(v)
+	if x, ok := v.Kind.(*structpb.Value_StructValue); ok {
+		return protoStructToMap(x.StructValue)
 	}
 
-	return &Context{
-		PID:     ctx.Pid,
-		Env:     ctx.Env,
-		Outputs: outputs,
-	}
+	return make(map[string]any)
 }
 
 // protoValueToAny converts structpb.Value to any.

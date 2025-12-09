@@ -1,13 +1,16 @@
 //! Agent gRPC server implementation.
-
-use crate::agent::{Agent, LogSender};
-use crate::proto::{self, agent_service_server};
-use crate::types::{Context, prost_value_to_json};
 use std::net::ToSocketAddrs;
 use std::sync::Arc;
+
 use tokio::sync::mpsc;
 use tokio_stream::wrappers::ReceiverStream;
 use tonic::{Request, Response, Status};
+
+use crate::{
+    agent::{Agent, LogSender},
+    proto::{self, agent_service_server},
+    types::prost_value_to_json,
+};
 
 /// Agent gRPC server.
 ///
@@ -69,8 +72,8 @@ impl<A: Agent> agent_service_server::AgentService for AgentServiceImpl<A> {
     ) -> Result<Response<Self::RunStream>, Status> {
         let req = request.into_inner();
 
+        let pid = req.pid;
         let nid = req.nid;
-        let ctx: Context = req.ctx.unwrap_or_default().into();
         let inputs = req
             .inputs
             .map(prost_value_to_json)
@@ -97,7 +100,7 @@ impl<A: Agent> agent_service_server::AgentService for AgentServiceImpl<A> {
 
         // Spawn task to run agent
         tokio::spawn(async move {
-            let output = agent.run(nid, ctx, inputs, log_sender).await;
+            let output = agent.run(pid, nid, inputs, log_sender).await;
             let update = proto::AgentUpdate {
                 relay_message: Some(proto::agent_update::RelayMessage::Output(output.into())),
             };
