@@ -36,7 +36,7 @@ message AgentUpdate {
 message Context {
   string pid = 1;// Process id.
   map<string, string> env = 2;// Environment variables.
-  map<string, google.protobuf.Value> vars = 3;// Variables.
+  map<string, google.protobuf.Value> outputs = 3;// Outputs.
 }
 
 // Log message.

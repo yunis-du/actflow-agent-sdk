@@ -9,20 +9,20 @@ import (
 func protoContextToContext(ctx *pb.Context) *Context {
 	if ctx == nil {
 		return &Context{
-			Env:  make(map[string]string),
-			Vars: make(map[string]any),
+			Env:     make(map[string]string),
+			Outputs: make(map[string]any),
 		}
 	}
 
-	vars := make(map[string]any)
-	for k, v := range ctx.Vars {
-		vars[k] = protoValueToAny(v)
+	outputs := make(map[string]any)
+	for k, v := range ctx.Outputs {
+		outputs[k] = protoValueToAny(v)
 	}
 
 	return &Context{
-		PID:  ctx.Pid,
-		Env:  ctx.Env,
-		Vars: vars,
+		PID:     ctx.Pid,
+		Env:     ctx.Env,
+		Outputs: outputs,
 	}
 }
 
@@ -135,4 +135,3 @@ func outputToProto(output *Output) *pb.AgentOutput {
 		Exception: output.Exception,
 	}
 }
-

@@ -24,8 +24,8 @@ impl Agent for EchoAgent {
         }
 
         // Log workflow variables
-        if !ctx.vars.is_empty() {
-            log.send(format!("Variables: {:?}", ctx.vars)).await;
+        if !ctx.outputs.is_empty() {
+            log.send(format!("Variables: {:?}", ctx.outputs)).await;
         }
 
         // Process the inputs

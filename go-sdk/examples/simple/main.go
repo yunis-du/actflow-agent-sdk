@@ -29,8 +29,8 @@ func (a *EchoAgent) Run(ctx context.Context, nid string, execCtx *sdk.Context, i
 	}
 
 	// Log workflow variables
-	if len(execCtx.Vars) > 0 {
-		logCh <- fmt.Sprintf("Variables: %v", execCtx.Vars)
+	if len(execCtx.Outputs) > 0 {
+		logCh <- fmt.Sprintf("Variables: %v", execCtx.Outputs)
 	}
 
 	// Process the inputs

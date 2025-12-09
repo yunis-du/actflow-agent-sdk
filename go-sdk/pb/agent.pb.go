@@ -265,9 +265,9 @@ func (*AgentUpdate_Output) isAgentUpdate_RelayMessage() {}
 // Context for agent execution.
 type Context struct {
 	state         protoimpl.MessageState     `protogen:"open.v1"`
-	Pid           string                     `protobuf:"bytes,1,opt,name=pid,proto3" json:"pid,omitempty"`                                                                             // Process id.
-	Env           map[string]string          `protobuf:"bytes,2,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`   // Environment variables.
-	Vars          map[string]*structpb.Value `protobuf:"bytes,3,rep,name=vars,proto3" json:"vars,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // Variables.
+	Pid           string                     `protobuf:"bytes,1,opt,name=pid,proto3" json:"pid,omitempty"`                                                                                   // Process id.
+	Env           map[string]string          `protobuf:"bytes,2,rep,name=env,proto3" json:"env,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`         // Environment variables.
+	Outputs       map[string]*structpb.Value `protobuf:"bytes,3,rep,name=outputs,proto3" json:"outputs,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // Outputs.
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -316,9 +316,9 @@ func (x *Context) GetEnv() map[string]string {
 	return nil
 }
 
-func (x *Context) GetVars() map[string]*structpb.Value {
+func (x *Context) GetOutputs() map[string]*structpb.Value {
 	if x != nil {
-		return x.Vars
+		return x.Outputs
 	}
 	return nil
 }
@@ -455,15 +455,15 @@ const file_agent_proto_rawDesc = "" +
 	"\vAgentUpdate\x12\x12\n" +
 	"\x03log\x18\x01 \x01(\tH\x00R\x03log\x12,\n" +
 	"\x06output\x18\x02 \x01(\v2\x12.agent.AgentOutputH\x00R\x06outputB\x0f\n" +
-	"\rrelay_message\"\xfd\x01\n" +
+	"\rrelay_message\"\x89\x02\n" +
 	"\aContext\x12\x10\n" +
 	"\x03pid\x18\x01 \x01(\tR\x03pid\x12)\n" +
-	"\x03env\x18\x02 \x03(\v2\x17.agent.Context.EnvEntryR\x03env\x12,\n" +
-	"\x04vars\x18\x03 \x03(\v2\x18.agent.Context.VarsEntryR\x04vars\x1a6\n" +
+	"\x03env\x18\x02 \x03(\v2\x17.agent.Context.EnvEntryR\x03env\x125\n" +
+	"\aoutputs\x18\x03 \x03(\v2\x1b.agent.Context.OutputsEntryR\aoutputs\x1a6\n" +
 	"\bEnvEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1aO\n" +
-	"\tVarsEntry\x12\x10\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\x1aR\n" +
+	"\fOutputsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12,\n" +
 	"\x05value\x18\x02 \x01(\v2\x16.google.protobuf.ValueR\x05value:\x028\x01\"\x1f\n" +
 	"\x03Log\x12\x18\n" +
@@ -509,7 +509,7 @@ var file_agent_proto_goTypes = []any{
 	(*Log)(nil),              // 5: agent.Log
 	(*AgentOutput)(nil),      // 6: agent.AgentOutput
 	nil,                      // 7: agent.Context.EnvEntry
-	nil,                      // 8: agent.Context.VarsEntry
+	nil,                      // 8: agent.Context.OutputsEntry
 	(*structpb.Value)(nil),   // 9: google.protobuf.Value
 }
 var file_agent_proto_depIdxs = []int32{
@@ -517,10 +517,10 @@ var file_agent_proto_depIdxs = []int32{
 	9,  // 1: agent.RunRequest.inputs:type_name -> google.protobuf.Value
 	6,  // 2: agent.AgentUpdate.output:type_name -> agent.AgentOutput
 	7,  // 3: agent.Context.env:type_name -> agent.Context.EnvEntry
-	8,  // 4: agent.Context.vars:type_name -> agent.Context.VarsEntry
+	8,  // 4: agent.Context.outputs:type_name -> agent.Context.OutputsEntry
 	0,  // 5: agent.AgentOutput.status:type_name -> agent.NodeExecutionStatus
 	9,  // 6: agent.AgentOutput.outputs:type_name -> google.protobuf.Value
-	9,  // 7: agent.Context.VarsEntry.value:type_name -> google.protobuf.Value
+	9,  // 7: agent.Context.OutputsEntry.value:type_name -> google.protobuf.Value
 	2,  // 8: agent.AgentService.Run:input_type -> agent.RunRequest
 	1,  // 9: agent.AgentService.Shutdown:input_type -> agent.Empty
 	3,  // 10: agent.AgentService.Run:output_type -> agent.AgentUpdate

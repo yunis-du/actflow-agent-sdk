@@ -21,8 +21,8 @@ type Context struct {
 	PID string
 	// Env contains environment variables.
 	Env map[string]string
-	// Vars contains workflow variables.
-	Vars map[string]any
+	// Outputs contains workflow variables.
+	Outputs map[string]any
 }
 
 // ExecutionStatus represents the status of agent execution.
@@ -100,4 +100,3 @@ func Exception(exception string) *Output {
 		Exception: exception,
 	}
 }
-

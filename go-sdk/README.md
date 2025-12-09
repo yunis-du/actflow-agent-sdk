@@ -56,7 +56,7 @@ type Agent interface {
 type Context struct {
     PID  string            // Process ID
     Env  map[string]string // Environment variables
-    Vars map[string]any    // Workflow variables
+    Outputs map[string]any    // Workflow outputs
 }
 ```
 

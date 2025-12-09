@@ -62,7 +62,7 @@ pub trait Agent: Send + Sync + 'static {
 pub struct Context {
     pub pid: String,                              // Process ID
     pub env: HashMap<String, String>,             // Environment variables
-    pub vars: HashMap<String, serde_json::Value>, // Workflow variables
+    pub outputs: HashMap<String, serde_json::Value>, // Workflow outputs
 }
 ```
 

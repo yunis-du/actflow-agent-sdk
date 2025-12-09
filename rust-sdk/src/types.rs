@@ -10,8 +10,8 @@ pub struct Context {
     pub pid: String,
     /// Environment variables.
     pub env: HashMap<String, String>,
-    /// Workflow variables.
-    pub vars: HashMap<String, serde_json::Value>,
+    /// Workflow outputs.
+    pub outputs: HashMap<String, serde_json::Value>,
 }
 
 impl From<proto::Context> for Context {
@@ -19,8 +19,8 @@ impl From<proto::Context> for Context {
         Self {
             pid: ctx.pid,
             env: ctx.env,
-            vars: ctx
-                .vars
+            outputs: ctx
+                .outputs
                 .into_iter()
                 .map(|(k, v)| (k, prost_value_to_json(v)))
                 .collect(),
@@ -33,7 +33,7 @@ impl Default for Context {
         Self {
             pid: String::new(),
             env: HashMap::new(),
-            vars: HashMap::new(),
+            outputs: HashMap::new(),
         }
     }
 }
