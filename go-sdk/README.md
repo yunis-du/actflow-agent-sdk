@@ -5,7 +5,7 @@ A Go SDK for building agents for the Actflow workflow engine.
 ## Installation
 
 ```bash
-go get github.com/yunis-du/actflow-agent-sdk/go-sdk@v0.1.1
+go get github.com/yunis-du/actflow-agent-sdk/go-sdk@v0.1.2
 ```
 
 ## Quick Start
