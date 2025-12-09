@@ -2,7 +2,7 @@
 name = "actflow-agent-sdk"
 authors = ["Yunis Du <yunis@88.com>"]
 license = "MIT"
-version = "0.1.1"
+version = "0.1.2"
 description = "A Rust SDK for building agents for Actflow."
 repository = "https://github.com/yunis-du/actflow-agent-sdk"
 edition = "2024"
